@@ -1,0 +1,167 @@
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Submissions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #f5f7fa;
+      --secondary-color: #1a1a2e;
+      --accent-color: #4a69ff;
+      --gradient: linear-gradient(135deg, #4a69ff, #9b59b6);
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--primary-color);
+      color: var(--secondary-color);
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      margin-top: 30px;
+      margin-bottom: 40px;
+    }
+
+    table {
+      width: 80%;
+      margin: auto;
+      border-collapse: collapse;
+      margin-top: 50px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 15px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background: var(--accent-color);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    td {
+      color: var(--secondary-color);
+    }
+
+    tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    tr:hover {
+      background: rgba(74, 105, 255, 0.1);
+      transition: background 0.3s ease;
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+      --primary-color: #1a1a2e;
+      --secondary-color: #e0e0e0;
+      --glass-bg: rgba(30, 30, 30, 0.85);
+    }
+
+    body.dark-mode table {
+      background: var(--glass-bg);
+    }
+
+    body.dark-mode tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    body.dark-mode tr:hover {
+      background: rgba(74, 105, 255, 0.2);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      table {
+        width: 90%;
+      }
+      th, td {
+        padding: 10px;
+        font-size: 0.9rem;
+      }
+      h2 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      table {
+        width: 95%;
+      }
+      th, td {
+        padding: 8px;
+        font-size: 0.85rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>📋 Contact Messages</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Message</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for contact in contacts %}
+      <tr>
+        <td>{{ contact.name }}</td>
+        <td>{{ contact.email }}</td>
+        <td>{{ contact.message }}</td>
+        <td>{{ contact.created_at|date:"d M Y H:i" }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">No messages yet.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <script>
+    // Dark Mode Toggle (if you want to add a toggle button later)
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check for saved dark mode preference
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+      }
+    });
+  </script>
+</body>
+</html>
